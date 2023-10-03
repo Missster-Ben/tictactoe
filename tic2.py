@@ -10,45 +10,63 @@ class Square:
         self.parity = new_parity
 
     def get_parity(self):
-    	return self.parity
+        return self.parity
 
     def get_name(self):
-    	return self.name
+        return self.name
+
+    def set_linked_squares(self, linky_time):
+        self.linked_squares = linky_time
+
+    def get_linked_squares(self):
+        return self.linked_squares
 
     def check_for_three(self, current_parity):
-	    parity_to_match = current_parity
-	    for chain in self.linked_squares:
-	        in_a_row = 0  # Initialize the count for each chain
-	        for square_to_check in chain:
-	            found_match = False  # Initialize a flag for the current chain
-	            for square in squares:
-	                if square.get_name() == square_to_check and square.get_parity() == parity_to_match:
-	                    found_match = True
-	                    break  # Break out of the innermost loop when a match is found
-	            if not found_match:
-	                break  # Break out of the current chain loop if a mismatch is found
-	            in_a_row += 1
-	            if in_a_row == 3:
-	                return True
-	    return False
-
-                   
+        parity_to_match = current_parity
+        for chain in self.get_linked_squares():
+            in_a_row = 1  # Initialize the count for each chain
+            for square_to_check in chain:
+                found_match = False  # Initialize a flag for the current chain
+                for square in squares:
+                    if square.get_name() == square_to_check.get_name() and square.get_parity() == parity_to_match:
+                        found_match = True
+                        break  # Break out of the innermost loop when a match is found
+                if not found_match:
+                    break  # Break out of the current chain loop if a mismatch is found
+                in_a_row += 1
+                if in_a_row == 3:
+                    return True
+        return False
 
 print("Let's play some frickin tictactoe!")
 print("To make a move, type the name of the square you would like to move in. The name of the square is a combination of the row it's in (A, B, or C) and then the column it's in (1, 2, or 3). For example, to play your move in the top left corner, you would type in A1 and then press enter.")
 
 # Setting up board
 squares = []
+
+# Initializing squares
 A1, A2, A3, B1, B2, B3, C1, C2, C3 = None, None, None, None, None, None, None, None, None
-A1 = Square("A1", [[A2, A3], [B2, C3], [B1, C1]])
-A2 = Square("A2", [[B2, C2], [A1, A3]])
-A3 = Square("A3", [[B3, C3], [B2, C1], [A1, A2]])
-B1 = Square("B1", [[B2, B3], [A1, A3]])
-B2 = Square("B2", [[A1, C3], [C1, A3], [B1, B3], [A2, C2]])
-B3 = Square("B3", [[B1, B2], [A3, C3]])
-C1 = Square("C1", [[B2, A3], [C2, C3], [A1, B1]])
-C2 = Square("C2", [[C1, C3], [A2, B2]])
-C3 = Square("C3", [[C1, C2], [A1, B2], [A3, B3]])
+A1 = Square("A1")
+A2 = Square("A2")
+A3 = Square("A3")
+B1 = Square("B1")
+B2 = Square("B2")
+B3 = Square("B3")
+C1 = Square("C1")
+C2 = Square("C2")
+C3 = Square("C3")
+
+# Linking squares into winning chains
+A1.set_linked_squares([[A2, A3], [B2, C3], [B1, C1]])
+A2.set_linked_squares([[B2, C2], [A1, A3]])
+A3.set_linked_squares([[B3, C3], [B2, C1], [A1, A2]])
+B1.set_linked_squares([[B2, B3], [A1, A3]])
+B2.set_linked_squares([[A1, C3], [C1, A3], [B1, B3], [A2, C2]])
+B3.set_linked_squares([[B1, B2], [A3, C3]])
+C1.set_linked_squares([[B2, A3], [C2, C3], [A1, B1]])
+C2.set_linked_squares([[C1, C3], [A2, B2]])
+C3.set_linked_squares([[C1, C2], [A1, B2], [A3, B3]])
+
 squares.extend([A1, A2, A3, B1, B2, B3, C1, C2, C3])
 
 
