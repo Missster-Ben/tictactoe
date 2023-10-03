@@ -32,7 +32,6 @@ class Square:
 	                return True
 	    return False
 
-
                    
 
 print("Let's play some frickin tictactoe!")
@@ -89,6 +88,6 @@ while win_status is False and number_of_moves < 9:
     win_status = played_square.check_for_three(players_turn)
 
 if win_status is True:
-    print("The " + players_turn + "'s won the game! Yay!")
+    print("The " + players_turn + "'s won the game this time! Yay!")
 elif number_of_moves == 9:
     print("Looks like the cat got this one. Well done though, that's what happens when both players play perfectly!")
