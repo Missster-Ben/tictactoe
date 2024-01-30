@@ -10,7 +10,8 @@ class Square:
         self.parity = new_parity
 
     def get_parity(self):
-        return self.parity
+        return self.parity if self.parity is not None else None
+
 
     def get_name(self):
         return self.name
@@ -38,8 +39,9 @@ class Square:
                     return True
         return False
         
-print("Let's play some frickin tictactoe!")
-print("To make a move, type the name of the square you would like to move in. The name of the square is a combination of the row it's in (A, B, or C) and then the column it's in (1, 2, or 3). For example, to play your move in the top left corner, you would type in A1 and then press enter.")
+print("Let's play some tictactoe!")
+print("To make a move, type the name of the square you would like to move in.")
+print("| A1 | A2 | A3 |\n| B1 | B2 | B3 |\n| C1 | C2 | C3 |")
 
 # Setting up board
 squares = []
@@ -85,11 +87,21 @@ def get_input():
     print("Oops, that wasn't a valid input. Please try again.")
     return get_input()
 
+# Displays the board so players can see what's going on
+def display_board():
+    for row in ["A", "B", "C"]:
+        print("|", end = " ")
+        for col in range(1, 4):
+            square = globals()[f"{row}{col}"]
+            print(square.get_parity() or " ", end=" | ")
+        print()
+
 
 # Game play
 win_status = False
 players_turn = None
 number_of_moves = 0
+
 
 while win_status is False and number_of_moves < 9:
     # Ensures players take turns
@@ -102,6 +114,7 @@ while win_status is False and number_of_moves < 9:
     played_square = get_input()
     played_square.set_parity(players_turn)
     number_of_moves += 1
+    display_board()
     # Checks for winners and updates win_status
     win_status = played_square.check_for_three(players_turn)
 
