@@ -37,7 +37,7 @@ class Square:
                 if in_a_row == 3:
                     return True
         return False
-
+        
 print("Let's play some frickin tictactoe!")
 print("To make a move, type the name of the square you would like to move in. The name of the square is a combination of the row it's in (A, B, or C) and then the column it's in (1, 2, or 3). For example, to play your move in the top left corner, you would type in A1 and then press enter.")
 
